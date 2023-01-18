@@ -1,0 +1,450 @@
+[
+    {
+        "id": "cc608cb54f52e12e",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "9189b3b17df66a89",
+        "type": "debug",
+        "z": "cc608cb54f52e12e",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 660,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "0f41e27dee5aa9f6",
+        "type": "mqtt in",
+        "z": "cc608cb54f52e12e",
+        "name": "",
+        "topic": "inTopic",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "40bfe271dd677eb3",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 70,
+        "y": 340,
+        "wires": [
+            [
+                "6bc205d64233b5c4"
+            ]
+        ]
+    },
+    {
+        "id": "e0b25407fb58d5a5",
+        "type": "Named Sensor Data",
+        "z": "cc608cb54f52e12e",
+        "name": "cin-644666615",
+        "cseConfig": "09c69cc5628665fe",
+        "aeConfig": "d49340b1080344f1",
+        "cntName": "DATA",
+        "cin": "la",
+        "x": 140,
+        "y": 160,
+        "wires": [
+            [
+                "ec469c7287aab180",
+                "9189b3b17df66a89"
+            ]
+        ]
+    },
+    {
+        "id": "ec469c7287aab180",
+        "type": "Content Extractor",
+        "z": "cc608cb54f52e12e",
+        "name": "Content Extractor",
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "0cb728ab7d3cb4fe",
+                "337f92796e8c4481"
+            ]
+        ]
+    },
+    {
+        "id": "a7ebcb6f0ccefe38",
+        "type": "trigger",
+        "z": "cc608cb54f52e12e",
+        "name": "",
+        "op1": "1",
+        "op2": "0",
+        "op1type": "val",
+        "op2type": "val",
+        "duration": "250",
+        "extend": "false",
+        "overrideDelay": "false",
+        "units": "ms",
+        "reset": "",
+        "bytopic": "all",
+        "topic": "topic",
+        "outputs": 1,
+        "x": 120,
+        "y": 100,
+        "wires": [
+            [
+                "e0b25407fb58d5a5"
+            ]
+        ]
+    },
+    {
+        "id": "0ab9a4cb1a27bb0c",
+        "type": "inject",
+        "z": "cc608cb54f52e12e",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 40,
+        "wires": [
+            [
+                "a7ebcb6f0ccefe38"
+            ]
+        ]
+    },
+    {
+        "id": "6bc205d64233b5c4",
+        "type": "SimpleCondition",
+        "z": "cc608cb54f52e12e",
+        "operator": "<",
+        "value_c": "20",
+        "inputType": "msg",
+        "input": "payload",
+        "name": "Test Luminosity",
+        "x": 240,
+        "y": 340,
+        "wires": [
+            [
+                "3c5a5b5a27f83535"
+            ]
+        ]
+    },
+    {
+        "id": "0cb728ab7d3cb4fe",
+        "type": "mqtt out",
+        "z": "cc608cb54f52e12e",
+        "name": "",
+        "topic": "Built_in_Light",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "40bfe271dd677eb3",
+        "x": 720,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "3c5a5b5a27f83535",
+        "type": "switch",
+        "z": "cc608cb54f52e12e",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 430,
+        "y": 340,
+        "wires": [
+            [
+                "5be72a421cbade60"
+            ],
+            [
+                "8ca922f2c0e56199"
+            ]
+        ]
+    },
+    {
+        "id": "5be72a421cbade60",
+        "type": "change",
+        "z": "cc608cb54f52e12e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "1",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 280,
+        "wires": [
+            [
+                "0cb728ab7d3cb4fe",
+                "213f82a5df501a49",
+                "337f92796e8c4481"
+            ]
+        ]
+    },
+    {
+        "id": "8ca922f2c0e56199",
+        "type": "change",
+        "z": "cc608cb54f52e12e",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "0",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 440,
+        "y": 400,
+        "wires": [
+            [
+                "0cb728ab7d3cb4fe",
+                "213f82a5df501a49",
+                "337f92796e8c4481"
+            ]
+        ]
+    },
+    {
+        "id": "34d7df065f5fa897",
+        "type": "ui_switch",
+        "z": "cc608cb54f52e12e",
+        "name": "",
+        "label": "switch",
+        "tooltip": "",
+        "group": "4fd5ccc30c319ce7",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "animate": false,
+        "className": "",
+        "x": 210,
+        "y": 420,
+        "wires": [
+            [
+                "3c5a5b5a27f83535"
+            ]
+        ]
+    },
+    {
+        "id": "213f82a5df501a49",
+        "type": "ui_chart",
+        "z": "cc608cb54f52e12e",
+        "name": "",
+        "group": "4fd5ccc30c319ce7",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "label": "chart",
+        "chartType": "line",
+        "legend": "false",
+        "xformat": "HH:mm:ss",
+        "interpolate": "linear",
+        "nodata": "",
+        "dot": false,
+        "ymin": "",
+        "ymax": "",
+        "removeOlder": 1,
+        "removeOlderPoints": "",
+        "removeOlderUnit": "3600",
+        "cutout": 0,
+        "useOneColor": false,
+        "useUTC": false,
+        "colors": [
+            "#1f77b4",
+            "#aec7e8",
+            "#ff7f0e",
+            "#2ca02c",
+            "#98df8a",
+            "#d62728",
+            "#ff9896",
+            "#9467bd",
+            "#c5b0d5"
+        ],
+        "outputs": 1,
+        "useDifferentColor": false,
+        "className": "",
+        "x": 690,
+        "y": 440,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "b082b17f40268ac8",
+        "type": "ui_switch",
+        "z": "cc608cb54f52e12e",
+        "name": "",
+        "label": "Light ",
+        "tooltip": "",
+        "group": "4fd5ccc30c319ce7",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "topic",
+        "topicType": "msg",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "fa-fire",
+        "oncolor": "yellow",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "fa-fire",
+        "offcolor": "grey",
+        "animate": true,
+        "className": "",
+        "x": 810,
+        "y": 340,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "337f92796e8c4481",
+        "type": "SimpleCondition",
+        "z": "cc608cb54f52e12e",
+        "operator": "=",
+        "value_c": "1",
+        "inputType": "msg",
+        "input": "payload",
+        "name": "=1?",
+        "x": 670,
+        "y": 340,
+        "wires": [
+            [
+                "b082b17f40268ac8"
+            ]
+        ]
+    },
+    {
+        "id": "40bfe271dd677eb3",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "09c69cc5628665fe",
+        "type": "CSE_CONFIG",
+        "cse": "MN LOM2M",
+        "poa": "http://localhost:8080",
+        "cseId": "mn-cse",
+        "cseName": "mn-name",
+        "adminOriginator": "024201ff2c7ac58b"
+    },
+    {
+        "id": "d49340b1080344f1",
+        "type": "AE_CONFIG",
+        "aeName": "CAE371386530"
+    },
+    {
+        "id": "4fd5ccc30c319ce7",
+        "type": "ui_group",
+        "name": "Switch",
+        "tab": "6ddb4c724768617a",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "024201ff2c7ac58b",
+        "type": "ORIGINATOR_CONFIG",
+        "originatorName": "admin",
+        "originator": "admin"
+    },
+    {
+        "id": "6ddb4c724768617a",
+        "type": "ui_tab",
+        "name": "Light",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
